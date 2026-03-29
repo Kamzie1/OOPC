@@ -55,4 +55,4 @@ run_tests: tests
 	done
 
 clean:
-	rm -rf $(BIN) $(OBJ) $(LIB)
+	rm -rf $(BIN) $(OBJ) $(LIB) $(PREPROCESSED)
