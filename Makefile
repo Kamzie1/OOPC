@@ -5,6 +5,7 @@ DEBUG=-g
 BIN=bin
 SRC=src
 OBJ=obj
+PREPROCESSED=preprocessed
 LIB=lib
 TESTS=tests
 LIBNAME=oopc
@@ -17,10 +18,10 @@ TEST_BINARIES=$(patsubst $(TESTS)/%.c,$(BIN)/test_%,$(TEST_SOURCES))
 
 all: run_tests
 
-.PHONY: clean folders obj debug lib lib_debug tests_obj tests run_tests
+.PHONY: clean folders obj debug lib lib_debug tests_obj tests run_tests, preprocess
 
 folders:
-	mkdir -p $(BIN) $(OBJ) $(LIB)
+	mkdir -p $(BIN) $(OBJ) $(LIB) $(PREPROCESSED)
 
 obj: $(SOURCES) folders
 	$(CC) $(FLAGS) -c $(SOURCES) -o $(OBJECTS)
@@ -33,6 +34,12 @@ lib: obj
 
 lib_debug: debug
 	ar rcs $(LIB)/lib$(LIBNAME).a $(OBJECTS)
+
+preprocess: $(TEST_SOURCES) folders
+	for src_file in $(TEST_SOURCES); do \
+		preprocessed_file=$(patsubst $(TESTS)/%.c,$(PREPROCESSED)/test_%.c,$$src_file); \
+		$(CC) $(FLAGS) -E $$src_file -o $$preprocessed_file; \
+	done
 
 tests_obj: $(TEST_SOURCES) folders
 	$(CC) $(FLAGS) $(DEBUG) -c $(TEST_SOURCES) -o $(TEST_OBJECTS)
