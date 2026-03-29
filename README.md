@@ -90,6 +90,7 @@ end_class(Base)
 ### Custom Destructor
 
 A custom destructor is a `void` function named `Destroy[ClassName]` that takes a pointer to the class object:
+> **Note:** I advise to make it static to avoid name clashes.
 
 ```C
 class
@@ -101,7 +102,7 @@ class
     #define DESTRUCTOR_String 1
 end_class(String)
 
-void DestroyString(String *self) {
+static void DestroyString(String *self) {
     free(self->data_);
     self->data_ = NULL;
 }

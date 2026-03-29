@@ -22,7 +22,7 @@ class
     #define DESTRUCTOR_String 1
 end_class(String)
 
-void DestroyString(String *self) {
+static void DestroyString(String *self) {
     free(self->data_);
     self->data_ = NULL;
 }
