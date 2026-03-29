@@ -14,4 +14,15 @@ void test_container() {
   assert(&object == container);
 }
 
-int main() { test_container(); }
+#define variadic(...) VA_LEN(__VA_ARGS__)
+
+void test_VA_LEN(){
+    assert(variadic() == 0);
+    assert(variadic(1) == 1);
+    assert(variadic(1, 2) == 2);
+}
+
+int main() {
+    test_container();
+    test_VA_LEN();
+}
