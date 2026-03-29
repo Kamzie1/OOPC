@@ -2,27 +2,25 @@
 #include <assert.h>
 
 typedef struct {
-  int a;
-  int b;
-  int c;
-} abc;
+    int a;
+    int b;
+    int c;
+} Abc;
 
-void test_container() {
-  abc object;
-  int *a_ptr = &object.a;
-  abc *container = container_of(a_ptr, abc, a);
-  assert(&object == container);
+void test_container_of() {
+    Abc object;
+    int *a_ptr = &object.a;
+    Abc *container = container_of(a_ptr, Abc, a);
+    assert(&object == container);
 }
 
-#define variadic(...) VA_LEN(__VA_ARGS__)
-
-void test_VA_LEN(){
-    assert(variadic() == 0);
-    assert(variadic(1) == 1);
-    assert(variadic(1, 2) == 2);
+void test_va_count() {
+    assert(VA_COUNT()     == 0);
+    assert(VA_COUNT(1)    == 1);
+    assert(VA_COUNT(1, 2) == 2);
 }
 
 int main() {
-    test_container();
-    test_VA_LEN();
+    test_container_of();
+    test_va_count();
 }
