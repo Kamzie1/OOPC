@@ -11,13 +11,27 @@
 })
 
 /* Internal helper — raw token paste, no expansion */
-#define _PP_CONCAT(A, B)  A##B
+#define _CONCAT(A, B)  A##B
 /* Public — forces expansion of A and B before pasting */
-#define PP_CONCAT(A, B)   _PP_CONCAT(A, B)
+#define CONCAT(A, B)   _CONCAT(A, B)
 
-/* Internal helper — selects the Nth argument */
-#define _VA_NTH_ARG(_1, _2, _3, _4, _5, _6, N, ...) N
-/* Counts the number of variadic arguments (0–5) */
-#define VA_COUNT(...) _VA_NTH_ARG(-1, ##__VA_ARGS__, 5, 4, 3, 2, 1, 0)
+/* This whole block allows for For each expansion(used for typeof() inside CONSTRUCT_FUNCTION_TYPE)
+ * util from  https://www.scs.stanford.edu/~dm/blog/va-opt.html
+ */
+#define PARENS ()
+
+#define EXPAND(...) EXPAND4(EXPAND4(EXPAND4(EXPAND4(__VA_ARGS__))))
+#define EXPAND4(...) EXPAND3(EXPAND3(EXPAND3(EXPAND3(__VA_ARGS__))))
+#define EXPAND3(...) EXPAND2(EXPAND2(EXPAND2(EXPAND2(__VA_ARGS__))))
+#define EXPAND2(...) EXPAND1(EXPAND1(EXPAND1(EXPAND1(__VA_ARGS__))))
+#define EXPAND1(...) __VA_ARGS__
+
+#define FOR_EACH(macro, ...)                                    \
+  __VA_OPT__(EXPAND(FOR_EACH_HELPER(macro, __VA_ARGS__)))
+#define FOR_EACH_HELPER(macro, a1, ...)                         \
+  macro(a1)                                                     \
+  __VA_OPT__(, FOR_EACH_AGAIN PARENS (macro, __VA_ARGS__))
+#define FOR_EACH_AGAIN() FOR_EACH_HELPER
+/* end of the block  */
 
 #endif
