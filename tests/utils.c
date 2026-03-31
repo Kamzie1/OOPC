@@ -1,4 +1,5 @@
 #include "../src/utils.h"
+#include "../src/class.h"
 #include <assert.h>
 
 typedef struct {
@@ -14,10 +15,12 @@ void test_container_of() {
     assert(&object == container);
 }
 
-void test_va_count() {
-    assert(VA_COUNT()     == 0);
-    assert(VA_COUNT(1)    == 1);
-    assert(VA_COUNT(1, 2) == 2);
+#define FOR_CONSTRUCTORS_CLASS(REGISTER)\
+    REGISTER(add, int, int, int)
+
+void construct_function_type(){
+    int a, b, c;
+    DISPATCH_CONSTRUCTOR(CLASS, NAME, a, b, c)
 }
 
 int main() {
