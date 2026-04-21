@@ -1,5 +1,3 @@
-# OOPC
-
 OOPC is an easy-to-use C framework for working with object-oriented programming concepts.
 
 # Overview
