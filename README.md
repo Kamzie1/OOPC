@@ -159,7 +159,7 @@ init_class(Abc, abc, 1)                      // calls construct_abc1_int
 init_class(Abc, abc, (float)1)               // calls construct_abc1_float
 ```
 
-> **Note:** Unlike C++, C does not perform implicit type casting. If you are unsure
+> **Note:** Unfortunetly my library does not perform implicit type casting. If you are unsure
 > whether an expression has the correct type (e.g. a string literal has type `char[N]`,
 > not `char *`) cast it explicitly: `(char *)"hello"`.
 
