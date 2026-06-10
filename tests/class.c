@@ -1,5 +1,5 @@
-#include "../src/class.h"
-#include "../src/utils.h"
+#include "class.h"
+#include "utils.h"
 #include <assert.h>
 #include <stdio.h>
 

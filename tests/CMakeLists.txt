@@ -1,0 +1,10 @@
+function (add_test name src)
+    set_source_files_properties(${src} PROPERTIES COMPILE_OPTIONS "-DDEBUG")
+    add_executable(test_${name} ${src})
+    target_compile_features(test_${name} PRIVATE cxx_std_23)
+    include_directories(${CMAKE_SOURCE_DIR}/include)
+    target_compile_options(test_${name} PRIVATE -save-temps)
+endfunction()
+
+add_test(class class.c)
+add_test(utils utils.c)

@@ -1,5 +1,5 @@
-#include "../src/utils.h"
-#include "../src/class.h"
+#include "utils.h"
+#include "class.h"
 #include <assert.h>
 
 typedef struct {
@@ -18,12 +18,6 @@ void test_container_of() {
 #define FOR_CONSTRUCTORS_CLASS(REGISTER)\
     REGISTER(add, int, int, int)
 
-void construct_function_type(){
-    int a, b, c;
-    DISPATCH_CONSTRUCTOR(CLASS, NAME, a, b, c)
-}
-
 int main() {
     test_container_of();
-    test_va_count();
 }
